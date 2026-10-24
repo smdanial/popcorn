@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String         @id @default(cuid())
+  email          String         @unique
+  name           String
+  passwordHash   String
+  avatarColor    String         @default("#f7c948")
+  createdAt      DateTime       @default(now())
+  diaryEntries   DiaryEntry[]
+  episodeWatches EpisodeWatch[]
+  libraryEntries LibraryEntry[]
+  lists          List[]
+}
+
+model Media {
+  id             String         @id @default(cuid())
+  tmdbId         Int?
+  type           String
+  title          String
+  originalTitle  String?
+  overview       String         @default("")
+  tagline        String?
+  posterPath     String?
+  backdropPath   String?
+  releaseDate    DateTime?
+  runtime        Int?
+  voteAverage    Float?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  genres         MediaGenre[]
+  seasons        Season[]
+  diaryEntries   DiaryEntry[]
+  libraryEntries LibraryEntry[]
+  listItems      ListItem[]
+
+  @@unique([tmdbId, type])
+  @@index([type])
+  @@index([title])
+}
+
+model Genre {
+  id    String       @id @default(cuid())
+  name  String       @unique
+  media MediaGenre[]
+}
+
+model MediaGenre {
+  mediaId String
+  genreId String
+  media   Media  @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  genre   Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
+
+  @@id([mediaId, genreId])
+  @@index([genreId])
+}
+
+model Season {
+  id           String    @id @default(cuid())
+  mediaId      String
+  seasonNumber Int
+  name         String
+  overview     String    @default("")
+  posterPath   String?
+  airDate      DateTime?
+  episodeCount Int       @default(0)
+  media        Media     @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  episodes     Episode[]
+
+  @@unique([mediaId, seasonNumber])
+}
+
+model Episode {
+  id            String         @id @default(cuid())
+  seasonId      String
+  episodeNumber Int
+  name          String
+  overview      String         @default("")
+  runtime       Int?
+  stillPath     String?
+  airDate       DateTime?
+  season        Season         @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  watches       EpisodeWatch[]
+
+  @@unique([seasonId, episodeNumber])
+  @@index([seasonId])
+}
+
+model DiaryEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  mediaId   String
+  watchedAt DateTime
+  rating    Float?
+  review    String?
+  rewatch   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@index([userId, watchedAt])
+  @@index([mediaId])
+}
+
+model EpisodeWatch {
+  id        String   @id @default(cuid())
+  userId    String
+  episodeId String
+  watchedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  episode   Episode  @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, episodeId])
+  @@index([userId, watchedAt])
+  @@index([episodeId])
+}
+
+model LibraryEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  mediaId   String
+  status    String   @default("PLAN")
+  favorite  Boolean  @default(false)
+  rating    Float?
+  addedAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, mediaId])
+  @@index([userId, status])
+}
+
+model List {
+  id          String     @id @default(cuid())
+  userId      String
+  title       String
+  description String     @default("")
+  isPublic    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       ListItem[]
+
+  @@index([userId])
+}
+
+model ListItem {
+  id       String   @id @default(cuid())
+  listId   String
+  mediaId  String
+  note     String?
+  position Int      @default(0)
+  addedAt  DateTime @default(now())
+  list     List     @relation(fields: [listId], references: [id], onDelete: Cascade)
+  media    Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([listId, mediaId])
+  @@index([mediaId])
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900" role="img" aria-label="THE SUBSTANCE poster">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#150a0d"/>
+      <stop offset="100%" stop-color="#8c2537"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.72" cy="0.28" r="0.75">
+      <stop offset="0%" stop-color="#ffd166" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffd166" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.13"/></feComponentTransfer>
+    </filter>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.82"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#bg)"/>
+  <rect width="600" height="900" fill="url(#glow)"/>
+  
+      <circle cx="452" cy="250" r="126" fill="#ffd166" opacity="0.9"/>
+      <g stroke="#ffd166" opacity="0.35">
+        <line x1="40" y1="700" x2="560" y2="700" stroke-width="1"/>
+        <line x1="40" y1="732" x2="560" y2="732" stroke-width="1"/>
+        <line x1="40" y1="764" x2="560" y2="764" stroke-width="1"/>
+      </g>
+  <rect width="600" height="900" filter="url(#grain)" opacity="0.9"/>
+  <rect width="600" height="900" fill="url(#fade)"/>
+  <g fill="#f6f2e9" font-family="ui-sans-serif, Inter, Helvetica, Arial, sans-serif">
+    <text x="56" y="74" font-size="20" font-weight="700" letter-spacing="5" opacity="0.85">POPCORN</text>
+    <text x="544" y="74" font-size="16" letter-spacing="3" text-anchor="end" opacity="0.7">2024</text>
+    <text x="56" y="476" font-size="80" font-weight="800" letter-spacing="-2"><tspan x="56" dy="0">THE</tspan><tspan x="56" dy="78.4">SUBSTANCE</tspan></text>
+    <text x="58" y="824" font-size="15" letter-spacing="3.5" opacity="0.78">HORROR · 141 MIN</text>
+  </g>
+  <rect x="56" y="850" width="44" height="3" fill="#ffd166"/>
+</svg>

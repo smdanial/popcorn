@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="900" viewBox="0 0 600 900" role="img" aria-label="PARASITE poster">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1c13"/>
+      <stop offset="100%" stop-color="#4d7a4a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.72" cy="0.28" r="0.75">
+      <stop offset="0%" stop-color="#e6e2bd" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#e6e2bd" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.13"/></feComponentTransfer>
+    </filter>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.82"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="900" fill="url(#bg)"/>
+  <rect width="600" height="900" fill="url(#glow)"/>
+  
+    <g stroke="#e6e2bd" opacity="0.35">
+      <line x1="60" y1="60" x2="18" y2="840" stroke-width="1"/><line x1="96" y1="60" x2="54" y2="840" stroke-width="1"/><line x1="132" y1="60" x2="90" y2="840" stroke-width="1"/><line x1="168" y1="60" x2="126" y2="840" stroke-width="1"/><line x1="204" y1="60" x2="162" y2="840" stroke-width="1"/><line x1="240" y1="60" x2="198" y2="840" stroke-width="1"/><line x1="276" y1="60" x2="234" y2="840" stroke-width="1"/><line x1="312" y1="60" x2="270" y2="840" stroke-width="1"/><line x1="348" y1="60" x2="306" y2="840" stroke-width="1"/><line x1="384" y1="60" x2="342" y2="840" stroke-width="1"/><line x1="420" y1="60" x2="378" y2="840" stroke-width="1"/><line x1="456" y1="60" x2="414" y2="840" stroke-width="1"/><line x1="492" y1="60" x2="450" y2="840" stroke-width="1"/><line x1="528" y1="60" x2="486" y2="840" stroke-width="1"/>
+    </g>
+  <rect width="600" height="900" filter="url(#grain)" opacity="0.9"/>
+  <rect width="600" height="900" fill="url(#fade)"/>
+  <g fill="#f6f2e9" font-family="ui-sans-serif, Inter, Helvetica, Arial, sans-serif">
+    <text x="56" y="74" font-size="20" font-weight="700" letter-spacing="5" opacity="0.85">POPCORN</text>
+    <text x="544" y="74" font-size="16" letter-spacing="3" text-anchor="end" opacity="0.7">2019</text>
+    <text x="56" y="510" font-size="80" font-weight="800" letter-spacing="-2"><tspan x="56" dy="0">PARASITE</tspan></text>
+    <text x="58" y="824" font-size="15" letter-spacing="3.5" opacity="0.78">THRILLER · 132 MIN</text>
+  </g>
+  <rect x="56" y="850" width="44" height="3" fill="#e6e2bd"/>
+</svg>
