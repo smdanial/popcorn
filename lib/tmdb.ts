@@ -98,7 +98,11 @@ export type TmdbSearchResult = {
 const TMDB_BASE = "https://api.themoviedb.org/3";
 
 export function isTmdbConfigured() {
-  return Boolean(process.env.TMDB_API_KEY || process.env.TMDB_READ_ACCESS_TOKEN);
+  return Boolean(
+    process.env.TMDB_API_KEY ||
+      process.env.TMDB_READ_ACCESS_TOKEN ||
+      process.env.NEXT_PUBLIC_TMDB_API_KEY,
+  );
 }
 
 export function tmdbImage(path: string | null | undefined, size = "w500") {
@@ -120,7 +124,8 @@ async function tmdbFetch<T>(
   params: Record<string, string | number | boolean> = {},
   revalidate = 3600,
 ): Promise<T> {
-  const apiKey = process.env.TMDB_API_KEY;
+  const apiKey =
+    process.env.TMDB_API_KEY || process.env.NEXT_PUBLIC_TMDB_API_KEY;
   const token = process.env.TMDB_READ_ACCESS_TOKEN;
   if (!apiKey && !token) throw new TmdbNotConfiguredError();
 
